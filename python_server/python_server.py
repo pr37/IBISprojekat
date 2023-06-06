@@ -24,8 +24,8 @@ class MyTCPHandler(socketserver.BaseRequestHandler):
             else:
                 response = "Invalid request"
 
-            send_data = response.encode()
-            self.request.sendall(send_data)
+            #send_data = response.encode()
+            #self.request.sendall(send_data)
 
         except Exception as e:
             print('Exception occurred in handle:')

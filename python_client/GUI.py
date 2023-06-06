@@ -2,12 +2,9 @@ import tkinter as tk
 from tkinter import ttk
 import socket
 
-def function_to_call():
-    # Function to be called when the button is clicked
-    return "Hello, World!"
 
-def button_click():
-    result = function_to_call()  # Call the function
+def flowsensorBTN(apistr):
+    result = client_call(apistr)  # Call the function
     result_label.config(text=result)  # Update the label with the returned string
 
 def client_call(api_string):
@@ -25,8 +22,7 @@ def client_call(api_string):
         sock.sendall(get_flow)
         # Receive data from the server and shut down
         received = sock.recv(1024)
-    return received
-
+        return received
 
 # Create the main window
 window = tk.Tk()
@@ -36,13 +32,12 @@ window.configure(bg="#ECECEC")
 style = ttk.Style()
 style.configure("TButton", background="#3498db", foreground="white", font=("Helvetica", 12))
 
-button = tk.Button(window, text="Get All Flow Sensor Readings", command=client_call("GET FLOW_SENSOR ALL"))
-button.pack()
 
-
-# Create a label to display the result
 result_label = tk.Label(window, text="")
-result_label.pack()
+result_label.grid(row=1, column=0, padx=10, pady=10)
+button = tk.Button(window, text="Get All Flow Sensor Readings", command=flowsensorBTN("GET FLOW_SENSOR ALL"))
+button.grid(row=0, column=0, padx=10, pady=10)
+
 
 # Start the main event loop
 window.mainloop()
