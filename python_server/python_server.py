@@ -21,6 +21,8 @@ class MyTCPHandler(socketserver.BaseRequestHandler):
 
             if self.data.startswith(b'GET FLOW_SENSOR ALL'):
                 self.get_flows()
+            elif self.data.startswith(b'SHUTDOWN'):
+                self.set_dam_off(self.data)
             else:
                 response = "Invalid request"
 
@@ -35,6 +37,17 @@ class MyTCPHandler(socketserver.BaseRequestHandler):
         response = self.Scada_Simulator.get_all_flow_sensors()
         print(response)
         self.send_response(response)
+
+    def set_dam_off(self,dam_id):
+        if (dam_id == "SHUTDOWN Dam 1"):
+            self.Scada_Simulator.Dam1.close_gate()
+        elif (dam_id == "SHUTDOWN Dam 2"):
+            self.Scada_Simulator.Dam2.close_gate()
+        elif (dam_id == "SHUTDOWN Dam 3"):
+            self.Scada_Simulator.Dam3.close_gate()
+        elif (dam_id == "SHUTDOWN Dam 4"):
+            self.Scada_Simulator.Dam4.close_gate()
+        print(dam_id)
 
     def send_response(self, response):
         send_data = response.encode()
