@@ -1,5 +1,11 @@
-from Komponente.Dam import Dam
+import sys, os
+current_dir = os.path.dirname(os.path.abspath(__file__))
+
+# Append the my_modules directory to sys.path
+sys.path.append(current_dir)
+from Dam import Dam
 import time
+
 
 class ScadaSimulator:
     def __init__(self):
@@ -7,6 +13,7 @@ class ScadaSimulator:
         self.Dam2 = Dam("2")
         self.Dam3 = Dam("3")
         self.Dam4 = Dam("4")
+        self.simulate_startup()
 
     def simulate_startup(self):
         self.Dam1.open_gate()
@@ -21,8 +28,6 @@ class ScadaSimulator:
         self.Dam4.open_gate()
         self.Dam4.water_flow_sensor.flow_rate = 10
 
-        self.simulate_all_sensors()
-        self.simulate_all_actuators()
 
     #sva ocitavanja se rade na 2 sekunde tako da sve moze ovde
     def simulate_all_sensors(self):
@@ -31,7 +36,16 @@ class ScadaSimulator:
             self.Dam1.water_flow_sensor.flow_rate += 5
         else:
             self.Dam1.water_flow_sensor.flow_rate = 0
-        time.sleep(2)
+
+    def get_all_flow_sensors(self):
+        strret = "DAM1 FLOW SENSOR: " + str(self.Dam1.get_water_flow()) + "\n" + \
+                 "DAM2 FLOW SENSOR: " + str(self.Dam2.get_water_flow()) + "\n" + \
+                 "DAM3 FLOW SENSOR: " + str(self.Dam3.get_water_flow()) + "\n" +  \
+                 "DAM4 FLOW SENSOR: " + str(self.Dam4.get_water_flow()) + "\n"
+        return  strret
 
     def simulate_all_actuators(self):
+        pass
+
+    def manual_change_pump(self,dam_id,value):
         pass

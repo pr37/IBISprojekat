@@ -1,5 +1,10 @@
-from FlowSensor import WaterFlowSensor
+import sys, os
+current_dir = os.path.dirname(os.path.abspath(__file__))
 
+# Append the my_modules directory to sys.path
+my_modules_path = os.path.join(current_dir, 'Komponente')
+sys.path.append(my_modules_path)
+from FlowSensor import WaterFlowSensor
 
 
 class Dam:
