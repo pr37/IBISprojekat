@@ -1,5 +1,5 @@
 import tkinter as tk
-from tkinter import ttk
+from tkinter import ttk,Text
 import socket
 from PIL import Image, ImageTk #pip install pillow
 
@@ -8,8 +8,21 @@ def flowsensorBTN():
     result = client_call("GET FLOW_SENSOR ALL")  # Call the function
     result_label.config(text=result)  # Update the label with the returned string
 
+
 def temperatureBTN():
     result = client_call("GET TEMPERATURE ALL")
+
+def levelsensorBTN():
+    result = client_call("GET LEVEL_SENSOR ALL")  # Call the function
+    result_label.config(text=result)  # Update the label with the returned string
+
+def pressuresensorBTN():
+    result = client_call("GET PRESSURE_SENSOR ALL")  # Call the function
+    result_label.config(text=result)  # Update the label with the returned string
+def SendId():
+    text = T.get(1.0, "end-1c")
+    result = client_call("SEND DAM ID,"+text)  # Call the function
+
     result_label.config(text=result)
 
 def emergencyShutDownBTN():
@@ -22,15 +35,22 @@ def client_call(api_string):
 
     #LIST OF API CALLS
     get_flow = bytes(api_string.encode())
+
     get_temp = bytes(api_string.encode())
+
+    get_level = bytes(api_string.encode())
+    get_pressure = bytes(api_string.encode())
+    get_water_level_specific_dam = bytes(api_string.encode())
+
+
 
     # Create a socket (SOCK_STREAM means a TCP socket)
     with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as sock:
         # Connect to server and send data
         sock.connect((HOST, PORT))
-
-        sock.sendall(get_flow)
-        sock.sendall(get_temp)
+       # sock.sendall(get_flow)
+       # sock.sendall(get_temp)
+        sock.sendall(get_water_level_specific_dam)
 
         # Receive data from the server and shut down
         received = sock.recv(1024)
@@ -60,8 +80,20 @@ result_label.grid(row=1, column=0, padx=10, pady=10)
 button = tk.Button(window, text="Get All Flow Sensor Readings", command=flowsensorBTN)
 button.grid(row=0, column=0, padx=10, pady=10)
 
+
 tempButton = tk.Button(window, text="Get All Water Temperatures", command=temperatureBTN)
 tempButton.grid(row=0, column=1, padx=10, pady=10)
+
+result_label = tk.Label(window, text="")
+result_label.grid(row=1, column=0, padx=10, pady=10)
+button = tk.Button(window, text="Get All Level Sensor Readings", command=levelsensorBTN)
+button.grid(row=0, column=1, padx=10, pady=10)
+
+result_label = tk.Label(window, text="")
+result_label.grid(row=1, column=0, padx=10, pady=10)
+button = tk.Button(window, text="Get All Pressure Sensor Readings", command=pressuresensorBTN)
+button.grid(row=0, column=2, padx=10, pady=10)
+
 
 label1 = ttk.Label(window, text="Dam 1")
 label1.grid(row=2, column=0)
@@ -95,6 +127,13 @@ image4 = image4.resize((50, 50))  # Resize the image to 100x100 pixels
 image4 = ImageTk.PhotoImage(image4)
 image_label4 = ttk.Label(window, image=image4)
 image_label4.grid(row=3, column=3, padx=10, pady=10)
+
+T = Text(window,width=5,height=1)
+T.grid(row=5,column=0)
+label5 = ttk.Label(window, text="Unesite id brane")
+label5.grid(row=4, column=0)
+button = tk.Button(window, text="Posalji", command=SendId)
+button.grid(row=6, column=0)
 
 # Start the main event loop
 window.mainloop()
