@@ -78,6 +78,19 @@ class ScadaSimulator:
                 strret = "Uneli ste pogresan id"
 
             return strret
+    def get_specific_pressure_sensor(self, id_dam1):
+            if(id_dam1 =="1"):
+                strret  = "DAM1 PRESSURE SENSOR: " + str(self.Dam1.get_water_pressure()) + "\n"
+            elif(id_dam1 =="2"):
+                strret = "DAM2 PRESSURE SENSOR: " + str(self.Dam2.get_water_pressure()) + "\n"
+            elif(id_dam1 == "3"):
+                strret = "DAM3 PRESSURE SENSOR: " + str(self.Dam3.get_water_pressure()) + "\n"
+            elif(id_dam1 == "4"):
+                strret = "DAM4 PRESSURE SENSOR: " + str(self.Dam4.get_water_pressure()) + "\n"
+            else:
+                strret = "Uneli ste pogresan id"
+
+            return strret
 
     def get_all_pressure_sensors(self):
         strret = "DAM1 PRESSURE SENSOR: " + str(self.Dam1.get_water_pressure()) + "\n" + \

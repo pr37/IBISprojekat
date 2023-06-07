@@ -22,7 +22,11 @@ def pressuresensorBTN():
 def SendId():
     text = T.get(1.0, "end-1c")
     result = client_call("SEND DAM ID,"+text)  # Call the function
+    result_label.config(text=result)
 
+def SendId1():
+    text1 = T1.get(1.0, "end-1c")
+    result = client_call("SEND DAM ID FOR PRESSURE,"+text1)  # Call the function
     result_label.config(text=result)
 
 def stressBTN():
@@ -45,15 +49,16 @@ def client_call(api_string):
     get_level = bytes(api_string.encode())
     get_pressure = bytes(api_string.encode())
     get_water_level_specific_dam = bytes(api_string.encode())
+    get_water_presssure_specific_dam = bytes(api_string.encode())
 
     # Create a socket (SOCK_STREAM means a TCP socket)
     with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as sock:
         # Connect to server and send data
         sock.connect((HOST, PORT))
 
-        sock.sendall(get_flow)
-        sock.sendall(get_temp)
-        sock.sendall(get_stress)
+        #sock.sendall(get_flow)
+        #sock.sendall(get_temp)
+       # sock.sendall(get_stress)
         sock.sendall(get_water_level_specific_dam)
 
         # Receive data from the server and shut down
@@ -89,6 +94,9 @@ tempButton.grid(row=0, column=3, padx=10, pady=10)
 
 stressButton = tk.Button(window, text="Get All Stresses", command=stressBTN)
 stressButton.grid(row=0, column=4, padx=10, pady=10)
+
+tempButton.grid(row=0, column=7, padx=10, pady=10)
+
 
 result_label = tk.Label(window, text="")
 result_label.grid(row=1, column=0, padx=10, pady=10)
@@ -135,10 +143,17 @@ image_label4.grid(row=3, column=3, padx=10, pady=10)
 
 T = Text(window,width=5,height=1)
 T.grid(row=5,column=0)
-label5 = ttk.Label(window, text="Unesite id brane")
+label5 = ttk.Label(window, text="Unesite id brane za nivo vode")
 label5.grid(row=4, column=0)
 button = tk.Button(window, text="Posalji", command=SendId)
 button.grid(row=6, column=0)
+
+T1 = Text(window,width=5,height=1)
+T1.grid(row=5,column=1)
+label16 = ttk.Label(window, text="Unesite id brane za pritisak vode")
+label16.grid(row=4, column=1)
+button = tk.Button(window, text="Posalji", command=SendId1)
+button.grid(row=6, column=1)
 
 # Start the main event loop
 window.mainloop()
