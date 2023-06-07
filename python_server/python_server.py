@@ -23,6 +23,8 @@ class MyTCPHandler(socketserver.BaseRequestHandler):
                 self.get_flows()
             elif self.data.startswith(b'GET TEMPERATURE ALL'):
                 self.get_temp()
+            elif self.data.startswith(b'GET STRESS ALL'):
+                self.get_stress()
             elif self.data.startswith(b'SHUTDOWN'):
                 self.set_dam_off(self.data)
             else:
@@ -42,6 +44,11 @@ class MyTCPHandler(socketserver.BaseRequestHandler):
 
     def get_temp(self):
         response = self.Scada_Simulator.get_all_temperatures()
+        print(response)
+        self.send_response(response)
+
+    def get_stress(self):
+        response = self.Scada_Simulator.get_all_stresses()
         print(response)
         self.send_response(response)
 

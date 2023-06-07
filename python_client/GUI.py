@@ -12,6 +12,10 @@ def temperatureBTN():
     result = client_call("GET TEMPERATURE ALL")
     result_label.config(text=result)
 
+def stressBTN():
+    result = client_call("GET STRESS ALL")
+    result_label.config(text=result)
+
 def emergencyShutDownBTN():
     selected_option = option_var.get()
     result = client_call("SHUTDOWN "+selected_option)
@@ -23,6 +27,7 @@ def client_call(api_string):
     #LIST OF API CALLS
     get_flow = bytes(api_string.encode())
     get_temp = bytes(api_string.encode())
+    get_stress = bytes(api_string.encode())
 
     # Create a socket (SOCK_STREAM means a TCP socket)
     with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as sock:
@@ -31,6 +36,7 @@ def client_call(api_string):
 
         sock.sendall(get_flow)
         sock.sendall(get_temp)
+        sock.sendall(get_stress)
 
         # Receive data from the server and shut down
         received = sock.recv(1024)
@@ -62,6 +68,9 @@ button.grid(row=0, column=0, padx=10, pady=10)
 
 tempButton = tk.Button(window, text="Get All Water Temperatures", command=temperatureBTN)
 tempButton.grid(row=0, column=1, padx=10, pady=10)
+
+stressButton = tk.Button(window, text="Get All Stresses", command=stressBTN)
+stressButton.grid(row=0, column=3, padx=10, pady=10)
 
 label1 = ttk.Label(window, text="Dam 1")
 label1.grid(row=2, column=0)

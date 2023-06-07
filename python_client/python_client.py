@@ -8,6 +8,7 @@ if __name__ == "__main__":
     #LIST OF API CALLS
     get_flow = bytes("GET FLOW_SENSOR ALL").encode()
     get_temp = bytes("GET TEMPERATURE ALL").encode()
+    get_stress = bytes("GET STRESS ALL").encode()
 
     # Create a socket (SOCK_STREAM means a TCP socket)
     with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as sock:

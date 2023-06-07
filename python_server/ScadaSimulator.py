@@ -37,6 +37,13 @@ class ScadaSimulator:
         else:
             self.Dam1.water_flow_sensor.flow_rate = 0
 
+    def get_stress_values(self, dam):
+        if dam < 0:
+            return "Water Stress is 10"
+        elif dam > 0:
+            return "Water Stress is 25"
+
+
     def get_all_flow_sensors(self):
         strret = "DAM1 FLOW SENSOR: " + str(self.Dam1.get_water_flow()) + "\n" + \
                  "DAM2 FLOW SENSOR: " + str(self.Dam2.get_water_flow()) + "\n" + \
@@ -51,6 +58,12 @@ class ScadaSimulator:
                  "DAM4 WATER TEMPERATURE: " + str(self.Dam4.get_water_temperature()) + "\n"
         return strret
 
+    def get_all_stresses(self):
+        strret = "DAM1 STRESS: " + str(self.get_stress_values(self.Dam1.get_water_temperature())) + "\n" + \
+                 "DAM2 STRESS: " + str(self.get_stress_values(self.Dam2.get_water_temperature())) + "\n" + \
+                 "DAM3 STRESS: " + str(self.get_stress_values(self.Dam3.get_water_temperature())) + "\n" + \
+                 "DAM4 STRESS: " + str(self.get_stress_values(self.Dam4.get_water_temperature())) + "\n"
+        return strret
     def simulate_all_actuators(self):
         pass
 
