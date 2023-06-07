@@ -33,9 +33,9 @@ class MyTCPHandler(socketserver.BaseRequestHandler):
                 self.get_pressures()
             elif self.data.startswith(b'SHUTDOWN'):
                 self.set_dam_off(self.data)
-            elif self.data.startswith(text[0].encode() =="SEND DAM ID"):
+            elif (text[0] == "SEND DAM ID"):
                 self.get_dam_id(text[1])
-            elif self.data.startswith(text[0].encode() =="SEND DAM ID FOR PRESSURE"):
+            elif (text[0] =="SEND DAM ID FOR PRESSURE"):
                 self.get_dam_id1(text[1])
             else:
                 response = "Invalid request"
