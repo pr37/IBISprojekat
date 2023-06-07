@@ -44,6 +44,13 @@ class ScadaSimulator:
                  "DAM4 FLOW SENSOR: " + str(self.Dam4.get_water_flow()) + "\n"
         return  strret
 
+    def get_all_temperatures(self):
+        strret = "DAM1 WATER TEMPERATURE: " + str(self.Dam1.get_water_temperature()) + "\n" + \
+                 "DAM2 WATER TEMPERATURE: " + str(self.Dam2.get_water_temperature()) + "\n" + \
+                 "DAM3 WATER TEMPERATURE: " + str(self.Dam3.get_water_temperature()) + "\n" + \
+                 "DAM4 WATER TEMPERATURE: " + str(self.Dam4.get_water_temperature()) + "\n"
+        return strret
+
     def simulate_all_actuators(self):
         pass
 

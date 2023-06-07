@@ -5,7 +5,7 @@ current_dir = os.path.dirname(os.path.abspath(__file__))
 my_modules_path = os.path.join(current_dir, 'Komponente')
 sys.path.append(my_modules_path)
 from FlowSensor import WaterFlowSensor
-
+import random
 
 class Dam:
     def __init__(self, id):
@@ -24,3 +24,6 @@ class Dam:
 
     def reset_water_level(self):
         self.water_flow_sensor.reset()
+
+    def get_water_temperature(self):
+        return random.randint(-10, 30)

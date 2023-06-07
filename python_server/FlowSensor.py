@@ -20,3 +20,4 @@ class WaterFlowSensor:
     def reset(self):
         # Reset the flow rate to zero
         self.flow_rate = 0.0
+
