@@ -33,10 +33,12 @@ class MyTCPHandler(socketserver.BaseRequestHandler):
                 self.get_pressures()
             elif self.data.startswith(b'SHUTDOWN'):
                 self.set_dam_off(self.data)
-            elif (text[0] == "SEND DAM ID"):
+            elif (text[0] == "SEND DAM ID FOR WATER LEVEL"):
                 self.get_dam_id(text[1])
             elif (text[0] =="SEND DAM ID FOR PRESSURE"):
                 self.get_dam_id1(text[1])
+            elif (text[0] =="SEND DAM ID VALVE STATE"):
+                self.get_valve_state(text[1])
             else:
                 response = "Invalid request"
 
@@ -65,8 +67,13 @@ class MyTCPHandler(socketserver.BaseRequestHandler):
         response = self.Scada_Simulator.get_specific_level_sensor(id_dam)
         print(response)
         self.send_response(response)
-    def get_dam_id1(self,id_dam1):
-        response = self.Scada_Simulator.get_specific_pressure_sensor(id_dam1)
+    def get_dam_id1(self,id_dam):
+        response = self.Scada_Simulator.get_specific_pressure_sensor(id_dam)
+        print(response)
+        self.send_response(response)
+
+    def get_valve_state(self, id_dam):
+        response = self.Scada_Simulator.get_specific_valve_state(id_dam)
         print(response)
         self.send_response(response)
 

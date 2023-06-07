@@ -19,14 +19,19 @@ def levelsensorBTN():
 def pressuresensorBTN():
     result = client_call("GET PRESSURE_SENSOR ALL")  # Call the function
     result_label.config(text=result)  # Update the label with the returned string
-def SendId():
+def Send_id_for_water_level():
     text = T.get(1.0, "end-1c")
-    result = client_call("SEND DAM ID,"+text)  # Call the function
+    result = client_call("SEND DAM ID FOR WATER LEVEL,"+text)  # Call the function
     result_label.config(text=result)
 
-def SendId1():
-    text1 = T1.get(1.0, "end-1c")
-    result = client_call("SEND DAM ID FOR PRESSURE,"+text1)  # Call the function
+def Send_id_for_pressure():
+    text = T1.get(1.0, "end-1c")
+    result = client_call("SEND DAM ID FOR PRESSURE,"+text)  # Call the function
+    result_label.config(text=result)
+
+def Send_id_for_valve_state():
+    text = T2.get(1.0, "end-1c")
+    result = client_call("SEND DAM ID VALVE STATE,"+text)  # Call the function
     result_label.config(text=result)
 
 def stressBTN():
@@ -50,6 +55,7 @@ def client_call(api_string):
     get_pressure = bytes(api_string.encode())
     get_water_level_specific_dam = bytes(api_string.encode())
     get_water_presssure_specific_dam = bytes(api_string.encode())
+    get_valve_specific_dam = bytes(api_string.encode())
 
     # Create a socket (SOCK_STREAM means a TCP socket)
     with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as sock:
@@ -59,7 +65,8 @@ def client_call(api_string):
         #sock.sendall(get_flow)
         #sock.sendall(get_temp)
        # sock.sendall(get_stress)
-        sock.sendall(get_water_level_specific_dam)
+        #sock.sendall(get_water_level_specific_dam)
+        sock.sendall(get_valve_specific_dam)
 
         # Receive data from the server and shut down
         received = sock.recv(1024)
@@ -145,15 +152,33 @@ T = Text(window,width=5,height=1)
 T.grid(row=5,column=0)
 label5 = ttk.Label(window, text="Unesite id brane za nivo vode")
 label5.grid(row=4, column=0)
-button = tk.Button(window, text="Posalji", command=SendId)
+button = tk.Button(window, text="Posalji", command=Send_id_for_water_level)
 button.grid(row=6, column=0)
 
 T1 = Text(window,width=5,height=1)
 T1.grid(row=5,column=1)
-label16 = ttk.Label(window, text="Unesite id brane za pritisak vode")
-label16.grid(row=4, column=1)
-button = tk.Button(window, text="Posalji", command=SendId1)
+label6 = ttk.Label(window, text="Unesite id brane za pritisak vode")
+label6.grid(row=4, column=1)
+button = tk.Button(window, text="Posalji", command=Send_id_for_pressure)
 button.grid(row=6, column=1)
+
+T2 = Text(window,width=5,height=1)
+T2.grid(row=5,column=2)
+label7 = ttk.Label(window, text="Unesite id brane za ocitavanje stanja ventila")
+label7.grid(row=4, column=2)
+button = tk.Button(window, text="Posalji", command=Send_id_for_valve_state)
+button.grid(row=6, column=2)
+
+options_valve = ["open", "close"]
+
+# Create a variable to store the selected option
+option_var_valve = tk.StringVar(window)
+
+# Create a menu list of string options
+option_menu = ttk.OptionMenu(window, option_var_valve, options_valve[1], *options_valve)
+option_menu.grid(row=5, column=3)
+button = tk.Button(window, text="Posalji", command=Change_valce_state_by_id)
+button.grid(row=6, column=3)
 
 # Start the main event loop
 window.mainloop()

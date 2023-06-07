@@ -17,6 +17,7 @@ class Dam:
         self.water_level_sensor = WaterLevelSensor()
         self.water_pressure_sensor = WaterPressureSensor()
         self.state = "inactive" #inactive, damaged, running
+        self.valve_state = "closed" #opened, closed
 
     def open_gate(self):
         self.state = "running"
@@ -38,3 +39,6 @@ class Dam:
 
     def get_water_temperature(self):
         return random.randint(-10, 30)
+
+    def get_valve_state(self):
+        return self.valve_state
