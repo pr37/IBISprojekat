@@ -18,15 +18,22 @@ class MyTCPHandler(socketserver.BaseRequestHandler):
             self.data = bytes(self.data)
             print(datetime.datetime.now(), " - {} wrote:".format(self.client_address[0]))
             print(' data: ', str(self.data))
+            text = self.data.decode().split(",")
 
             if self.data.startswith(b'GET FLOW_SENSOR ALL'):
-                self.get_flows()
+                self.get_flow
             elif self.data.startswith(b'GET TEMPERATURE ALL'):
                 self.get_temp()
             elif self.data.startswith(b'GET STRESS ALL'):
                 self.get_stress()
+            elif self.data.startswith(b'GET LEVEL_SENSOR ALL'):
+                self.get_levels()
+            elif self.data.startswith(b'GET PRESSURE_SENSOR ALL'):
+                self.get_pressures()
             elif self.data.startswith(b'SHUTDOWN'):
                 self.set_dam_off(self.data)
+            elif self.data.startswith(text[0].encode()):
+                self.get_dam_id(text[1])
             else:
                 response = "Invalid request"
 
@@ -44,6 +51,20 @@ class MyTCPHandler(socketserver.BaseRequestHandler):
 
     def get_temp(self):
         response = self.Scada_Simulator.get_all_temperatures()
+        print(response)
+        self.send_response(response)
+
+    def get_levels(self):
+        response = self.Scada_Simulator.get_all_level_sensors()
+        print(response)
+        self.send_response(response)
+    def get_dam_id(self,id_dam):
+        response = self.Scada_Simulator.get_specific_level_sensor(id_dam)
+        print(response)
+        self.send_response(response)
+
+    def get_pressures(self):
+        response = self.Scada_Simulator.get_all_pressure_sensors()
         print(response)
         self.send_response(response)
 

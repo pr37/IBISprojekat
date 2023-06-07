@@ -18,15 +18,23 @@ class ScadaSimulator:
     def simulate_startup(self):
         self.Dam1.open_gate()
         self.Dam1.water_flow_sensor.flow_rate = 10
+        self.Dam1.water_level_sensor.level = 20;
+        self.Dam1.water_pressure_sensor.pressure = 30;
 
         self.Dam2.open_gate()
         self.Dam2.water_flow_sensor.flow_rate = 10
+        self.Dam2.water_level_sensor.level = 20;
+        self.Dam2.water_pressure_sensor.pressure = 30;
 
         self.Dam3.open_gate()
         self.Dam3.water_flow_sensor.flow_rate = 10
+        self.Dam3.water_level_sensor.level = 20;
+        self.Dam3.water_pressure_sensor.pressure = 30;
 
         self.Dam4.open_gate()
         self.Dam4.water_flow_sensor.flow_rate = 10
+        self.Dam4.water_level_sensor.level = 20;
+        self.Dam4.water_pressure_sensor.pressure = 30;
 
 
     #sva ocitavanja se rade na 2 sekunde tako da sve moze ovde
@@ -50,6 +58,33 @@ class ScadaSimulator:
                  "DAM3 FLOW SENSOR: " + str(self.Dam3.get_water_flow()) + "\n" +  \
                  "DAM4 FLOW SENSOR: " + str(self.Dam4.get_water_flow()) + "\n"
         return  strret
+    def get_all_level_sensors(self):
+        strret  = "DAM1 LEVEL SENSOR: " + str(self.Dam1.get_water_level()) + "\n" + \
+                 "DAM2 LEVEL SENSOR: " + str(self.Dam2.get_water_level()) + "\n" + \
+                 "DAM3 LEVEL SENSOR: " + str(self.Dam3.get_water_level()) + "\n" +  \
+                 "DAM4 LEVEL SENSOR: " + str(self.Dam4.get_water_level()) + "\n"
+        return strret
+
+    def get_specific_level_sensor(self, id_dam):
+            if(id_dam =="1"):
+                strret  = "DAM1 LEVEL SENSOR: " + str(self.Dam1.get_water_level()) + "\n"
+            elif(id_dam =="2"):
+                strret = "DAM2 LEVEL SENSOR: " + str(self.Dam2.get_water_level()) + "\n"
+            elif(id_dam == "3"):
+                strret = "DAM3 LEVEL SENSOR: " + str(self.Dam3.get_water_level()) + "\n"
+            elif(id_dam == "4"):
+                strret = "DAM4 LEVEL SENSOR: " + str(self.Dam4.get_water_level()) + "\n"
+            else:
+                strret = "Uneli ste pogresan id"
+
+            return strret
+
+    def get_all_pressure_sensors(self):
+        strret = "DAM1 PRESSURE SENSOR: " + str(self.Dam1.get_water_pressure()) + "\n" + \
+                 "DAM2 PRESSURE SENSOR: " + str(self.Dam2.get_water_pressure()) + "\n" + \
+                 "DAM3 PRESSURE SENSOR: " + str(self.Dam3.get_water_pressure()) + "\n" +  \
+                 "DAM4 PRESSURE SENSOR: " + str(self.Dam4.get_water_pressure()) + "\n"
+        return strret
 
     def get_all_temperatures(self):
         strret = "DAM1 WATER TEMPERATURE: " + str(self.Dam1.get_water_temperature()) + "\n" + \

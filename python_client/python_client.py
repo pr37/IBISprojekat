@@ -10,6 +10,11 @@ if __name__ == "__main__":
     get_temp = bytes("GET TEMPERATURE ALL").encode()
     get_stress = bytes("GET STRESS ALL").encode()
 
+    get_flow = bytes("GET FLOW_SENSOR ALL".encode())
+    get_level = bytes("GET LEVEL_SENSOR ALL".encode())
+    get_pressure = bytes("GET PRESSURE_SENSOR ALL".encode())
+
+
     # Create a socket (SOCK_STREAM means a TCP socket)
     with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as sock:
         # Connect to server and send data
