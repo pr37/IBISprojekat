@@ -39,6 +39,8 @@ class MyTCPHandler(socketserver.BaseRequestHandler):
                 self.get_dam_id1(text[1])
             elif (text[0] =="SEND DAM ID VALVE STATE"):
                 self.get_valve_state(text[1])
+            elif (text[0] == "CHANGE VALVE STATE BY ID"):
+                self.set_valve_state(text[1], text[2])
             else:
                 response = "Invalid request"
 
@@ -79,6 +81,11 @@ class MyTCPHandler(socketserver.BaseRequestHandler):
 
     def get_pressures(self):
         response = self.Scada_Simulator.get_all_pressure_sensors()
+        print(response)
+        self.send_response(response)
+
+    def set_valve_state(self, id_dam, valve_state):
+        response = self.Scada_Simulator.set_valve_state(id_dam, valve_state)
         print(response)
         self.send_response(response)
 

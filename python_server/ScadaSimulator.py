@@ -107,6 +107,24 @@ class ScadaSimulator:
 
         return strret
 
+    def set_valve_state(self, id_dam, valve_state):
+        if (id_dam == "1"):
+            self.Dam1.set_valve_state(valve_state)
+            strret = "DAM1 VALVE STATE: " + str(self.Dam1.get_valve_state()) + "\n"
+        elif (id_dam == "2"):
+            self.Dam2.set_valve_state(valve_state)
+            strret = "DAM2 VALVE STATE: " + str(self.Dam2.get_valve_state()) + "\n"
+        elif (id_dam == "3"):
+            self.Dam3.set_valve_state(valve_state)
+            strret = "DAM3 VALVE STATE: " + str(self.Dam3.get_valve_state()) + "\n"
+        elif (id_dam == "4"):
+            self.Dam4.set_valve_state(valve_state)
+            strret = "DAM4 VALVE STATE: " + str(self.Dam4.get_valve_state()) + "\n"
+        else:
+            strret = "Uneli ste pogresan id"
+
+        return strret
+
     def get_all_pressure_sensors(self):
         strret = "DAM1 PRESSURE SENSOR: " + str(self.Dam1.get_water_pressure()) + "\n" + \
                  "DAM2 PRESSURE SENSOR: " + str(self.Dam2.get_water_pressure()) + "\n" + \

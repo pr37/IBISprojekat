@@ -34,6 +34,12 @@ def Send_id_for_valve_state():
     result = client_call("SEND DAM ID VALVE STATE,"+text)  # Call the function
     result_label.config(text=result)
 
+def Change_valve_state_by_id():
+    id_Dam = T3.get(1.0, "end-1c")
+    valve_state = option_var_valve.get()
+    result = client_call("CHANGE VALVE STATE BY ID," + id_Dam + "," + valve_state)  # Call the function
+    result_label.config(text=result)
+
 def stressBTN():
     result = client_call("GET STRESS ALL")
     result_label.config(text=result)
@@ -175,10 +181,14 @@ options_valve = ["open", "close"]
 option_var_valve = tk.StringVar(window)
 
 # Create a menu list of string options
+label8 = ttk.Label(window, text="Unesite Id brane za promenu stanja ventila")
+label8.grid(row=4, column=3)
+T3 = Text(window,width=5,height=1)
+T3.grid(row=5,column=3)
 option_menu = ttk.OptionMenu(window, option_var_valve, options_valve[1], *options_valve)
-option_menu.grid(row=5, column=3)
-button = tk.Button(window, text="Posalji", command=Change_valce_state_by_id)
-button.grid(row=6, column=3)
+option_menu.grid(row=6, column=3)
+button = tk.Button(window, text="Posalji", command=Change_valve_state_by_id)
+button.grid(row=7, column=3)
 
 # Start the main event loop
 window.mainloop()

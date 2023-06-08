@@ -42,3 +42,6 @@ class Dam:
 
     def get_valve_state(self):
         return self.valve_state
+
+    def set_valve_state(self, new_valve_state):
+        self.valve_state = new_valve_state
