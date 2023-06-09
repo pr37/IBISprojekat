@@ -8,8 +8,8 @@ sys.path.append(my_modules_path)
 class WaterLevelSensor:
     def __init__(self):
         self.level = 0.0
-        self.max_level = 200
-        self.min_flow = 0 #
+        self.max_level = 100
+        self.min_level = 0
 
     def set_level(self, value):
         self.level = value
