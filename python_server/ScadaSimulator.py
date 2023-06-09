@@ -13,7 +13,9 @@ class ScadaSimulator:
         self.Dam2 = Dam("2")
         self.Dam3 = Dam("3")
         self.Dam4 = Dam("4")
-        self.simulate_startup()
+        # self.simulate_startup()
+        self.simulate_all_sensors()
+        self.simulate_all_actuators()
 
     def simulate_startup(self):
         self.Dam1.open_gate()
@@ -50,42 +52,62 @@ class ScadaSimulator:
 
         if (self.Dam1.valve_state == "closed" and self.Dam1.pump.is_running == False):
             if (self.Dam1.water_level_sensor.level <= self.Dam1.water_level_sensor.max_level):
-                self.Dam1.water_level_sensor += 20
+                self.Dam1.water_level_sensor.level += 20
+                self.Dam1.water_pressure_sensor.pressure += 20
         elif(self.Dam1.valve_state == "open"):
             if (self.Dam1.pump.is_running):
-                self.Dam1.water_level_sensor += 5
+                self.Dam1.water_level_sensor.level += 5
+                self.Dam1.water_pressure_sensor.pressure += 5
             elif(self.Dam1.pump.is_running == False):
-                self.Dam1.water_level_sensor -= 5
+                self.Dam1.water_level_sensor.level -= 5
+                self.Dam1.water_pressure_sensor.pressure -= 5
         if (self.Dam2.valve_state == "closed" and self.Dam2.pump.is_running == False):
             if (self.Dam2.water_level_sensor.level <= self.Dam2.water_level_sensor.max_level):
-                self.Dam2.water_level_sensor += 20
+                self.Dam2.water_level_sensor.level += 20
+                self.Dam2.water_pressure_sensor.pressure += 20
         elif(self.Dam2.valve_state == "open"):
             if (self.Dam2.pump.is_running):
-                self.Dam2.water_level_sensor += 5
+                self.Dam2.water_level_sensor.level += 5
+                self.Dam2.water_pressure_sensor.pressure += 5
             elif(self.Dam2.pump.is_running == False):
-                self.Dam2.water_level_sensor -= 5
+                self.Dam2.water_level_sensor.level -= 5
+                self.Dam2.water_pressure_sensor.pressure -= 5
         if (self.Dam3.valve_state == "closed" and self.Dam3.pump.is_running == False):
             if (self.Dam3.water_level_sensor.level <= self.Dam3.water_level_sensor.max_level):
-                self.Dam3.water_level_sensor += 20
+                self.Dam3.water_level_sensor.level += 20
+                self.Dam3.water_pressure_sensor.pressure += 20
         elif(self.Dam3.valve_state == "open"):
             if (self.Dam3.pump.is_running):
-                self.Dam3.water_level_sensor += 5
+                self.Dam3.water_level_sensor.level += 5
+                self.Dam3.water_pressure_sensor.pressure += 5
             elif(self.Dam3.pump.is_running == False):
-                self.Dam3.water_level_sensor -= 5
+                self.Dam3.water_level_sensor.level -= 5
+                self.Dam3.water_pressure_sensor.pressure -= 5
         if (self.Dam4.valve_state == "closed" and self.Dam4.pump.is_running == False):
             if (self.Dam4.water_level_sensor.level <= self.Dam4.water_level_sensor.max_level):
-                self.Dam4.water_level_sensor += 20
+                self.Dam4.water_level_sensor.level += 20
+                self.Dam4.water_pressure_sensor.pressure += 20
         elif(self.Dam4.valve_state == "open"):
             if (self.Dam4.pump.is_running):
-                self.Dam4.water_level_sensor += 5
+                self.Dam4.water_level_sensor.level += 5
+                self.Dam4.water_pressure_sensor.pressure += 5
             elif(self.Dam4.pump.is_running == False):
-                self.Dam4.water_level_sensor -= 5
+                self.Dam4.water_level_sensor.level -= 5
+                self.Dam4.water_pressure_sensor.pressure -= 5
 
 
-    def get_stress_values(self, dam):
-        if dam < 0:
+    def get_stress_values(self, waterTemperature, waterPressure, waterLevel):
+        if waterTemperature < 0:
             return " is stressed"
-        elif dam > 0:
+        elif waterTemperature > 0:
+            return "is not stressed"
+        if waterPressure > 30:
+            return "is stressed"
+        elif waterPressure < 30:
+            return "is not stressed"
+        if waterLevel > 30:
+            return "is stressed"
+        elif waterLevel < 30:
             return "is not stressed"
 
 
@@ -205,10 +227,20 @@ class ScadaSimulator:
         return strret
 
     def get_all_stresses(self):
-        strret = "DAM1 STRESS: " + str(self.get_stress_values(self.Dam1.get_water_temperature())) + "\n" + \
-                 "DAM2 STRESS: " + str(self.get_stress_values(self.Dam2.get_water_temperature())) + "\n" + \
-                 "DAM3 STRESS: " + str(self.get_stress_values(self.Dam3.get_water_temperature())) + "\n" + \
-                 "DAM4 STRESS: " + str(self.get_stress_values(self.Dam4.get_water_temperature())) + "\n"
+        strret = "DAM1 STRESS: " + str(self.get_stress_values(self.Dam1.get_water_temperature(),
+                                                              self.Dam1.get_water_pressure(),
+                                                              self.Dam1.get_water_level())) + "\n" + \
+                 "DAM2 STRESS: " + str(self.get_stress_values(self.Dam2.get_water_temperature(),
+                                                              self.Dam2.get_water_pressure(),
+                                                              self.Dam2.get_water_level())) + "\n" + \
+                 "DAM3 STRESS: " + str(self.get_stress_values(self.Dam3.get_water_temperature(),
+                                                              self.Dam3.get_water_pressure(),
+                                                              self.Dam3.get_water_level()
+                                                              )) + "\n" + \
+                 "DAM4 STRESS: " + str(self.get_stress_values(self.Dam4.get_water_temperature(),
+                                                              self.Dam4.get_water_pressure(),
+                                                              self.Dam4.get_water_level()
+                                                              )) + "\n"
         return strret
     def simulate_all_actuators(self):
         pass

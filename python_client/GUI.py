@@ -90,7 +90,7 @@ def update_data():
     update_images()
 
     # Schedule the next update after 2 seconds
-    window.after(2000, update_data)
+    window.after(8000, update_data)
 
 
 def shutdown_system():

@@ -7,7 +7,7 @@ my_modules_path = os.path.join(current_dir, 'Komponente')
 sys.path.append(my_modules_path)
 class WaterLevelSensor:
     def __init__(self):
-        self.level = 0.0
+        self.level = 0
         self.max_level = 100
         self.min_level = 0
 

@@ -59,18 +59,50 @@ class Dam:
 
     def get_water_flow(self):
         return self.water_flow_sensor.get_flow_rate()
+        # if (self.state != "emergency shut down" or self.state != "damaged" or self.state != "inactive"):
+        #     # Define the range around the previous number
+        #     min_value = max(self.pum - 5, 0)
+        #     max_value = min(self.water_flow_sensor.flow_rate + 5, 50)
+        #
+        #     # Generate a random number within the defined range
+        #     new_number = random.randint(min_value, max_value)
+        #
+        #     # Update the previous number with the new number
+        #     self.self.water_flow_sensor.flow_rate = new_number
+        #     return self.self.water_flow_sensor.flow_rate
 
     def get_water_level(self):
-        return self.water_level_sensor.get_level()
+        # return self.water_level_sensor.get_level()
+        if (self.state != "emergency shut down" or self.state != "damaged" or self.state != "inactive"):
+            # Define the range around the previous number
+            min_value = max(self.water_level_sensor.level - 5, 0)
+            max_value = min(self.water_level_sensor.level + 5, 100)
+
+            # Generate a random number within the defined range
+            new_number = random.randint(min_value, max_value)
+
+            # Update the previous number with the new number
+            self.water_level_sensor.level = new_number
+            return self.water_level_sensor.level
 
     def get_water_pressure(self):
-        return self.water_pressure_sensor.get_pressure()
+        if (self.state != "emergency shut down" or self.state != "damaged" or self.state != "inactive"):
+            # Define the range around the previous number
+            min_value = max(self.water_pressure_sensor.pressure - 5, 0)
+            max_value = min(self.water_pressure_sensor.pressure + 5, 100)
+
+            # Generate a random number within the defined range
+            new_number = random.randint(min_value, max_value)
+
+            # Update the previous number with the new number
+            self.water_pressure_sensor.pressure = new_number
+            return self.water_pressure_sensor.pressure
 
     def reset_water_level(self):
         self.water_flow_sensor.reset()
 
     def get_water_temperature(self):
-        if (self.state != "emergency shut down" or self.state != "damaged" ):
+        if (self.state != "emergency shut down" or self.state != "damaged" or self.state != "inactive"):
             # Define the range around the previous number
             min_value = max(self.water_temperature.temp - 5, -20)
             max_value = min(self.water_temperature.temp + 5, 40)
