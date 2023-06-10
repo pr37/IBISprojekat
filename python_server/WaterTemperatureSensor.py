@@ -7,7 +7,7 @@ my_modules_path = os.path.join(current_dir, 'Komponente')
 sys.path.append(my_modules_path)
 class WaterTemperatureSensor:
     def __init__(self):
-        self.temp = 5
+        self.temp = 20
         self.max_temp = 40
         self.min_temp = -20
 

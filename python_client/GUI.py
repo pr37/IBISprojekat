@@ -84,13 +84,15 @@ def update_data():
         indx = i + 1
         dam_states[i] = str_states.split(' ')
 
-
-    result_label_dam_state.config(text="Dam 1: " + str(str_states.split(' ')[0])+ "\n" + "Dam 2: " + str(str_states.split(' ')[1]) + "\n" + "Dam 3: " + str(str_states.split(' ')[2]) + "\n"+ "Dam 4: " + str(str_states.split(' ')[3]))
+    if (str_states.split(' ')[0] == "emergency"):
+        result_label_dam_state.config(text="Dam 1: " + "emergency shut down" + "\n" + "Dam 2: " + "emergency shut down" + "\n" + "Dam 3: " + "emergency shut down" + "\n" + "Dam 4: " + "emergency shut down")
+    else:
+        result_label_dam_state.config(text="Dam 1: " + str(str_states.split(' ')[0])+ "\n" + "Dam 2: " + str(str_states.split(' ')[1]) + "\n" + "Dam 3: " + str(str_states.split(' ')[2]) + "\n"+ "Dam 4: " + str(str_states.split(' ')[3]))
 
     update_images()
 
     # Schedule the next update after 2 seconds
-    window.after(8000, update_data)
+    window.after(3000, update_data)
 
 
 def shutdown_system():
@@ -116,7 +118,7 @@ def change_pump_state():
 
 # Create the main window
 window = tk.Tk()
-window.geometry("1000x600")
+window.geometry("900x600")
 window.configure(bg="#ECECEC")
 
 # Create a frame for the header
@@ -159,7 +161,7 @@ section_frame_valves = tk.Frame(data_frame, bg="#ECECEC")
 section_frame_valves.grid(row=2, column=1, pady=10, padx=10)
 
 section_frame_pumps = tk.Frame(data_frame, bg="#ECECEC")
-section_frame_pumps.grid(row=2, column=2, pady=10, padx=10)
+section_frame_pumps.grid(row=3, column=1, pady=10, padx=10)
 
 section_frame_dam_state = tk.Frame(data_frame, bg="#ECECEC")
 section_frame_dam_state.grid(row=3, column=0, pady=10, padx=10)

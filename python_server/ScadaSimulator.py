@@ -112,16 +112,16 @@ class ScadaSimulator:
 
 
     def get_all_flow_sensors(self):
-        strret = "DAM1 FLOW SENSOR: " + str(self.Dam1.get_water_flow()) + "\n" + \
-                 "DAM2 FLOW SENSOR: " + str(self.Dam2.get_water_flow()) + "\n" + \
-                 "DAM3 FLOW SENSOR: " + str(self.Dam3.get_water_flow()) + "\n" +  \
-                 "DAM4 FLOW SENSOR: " + str(self.Dam4.get_water_flow()) + "\n"
+        strret = "DAM1 FLOW SENSOR: " + str(self.Dam1.get_water_flow()) + " [L/sec]\n" + \
+                 "DAM2 FLOW SENSOR: " + str(self.Dam2.get_water_flow()) + " [L/sec]\n" + \
+                 "DAM3 FLOW SENSOR: " + str(self.Dam3.get_water_flow()) + " [L/sec]\n" +  \
+                 "DAM4 FLOW SENSOR: " + str(self.Dam4.get_water_flow()) + " [L/sec]\n"
         return  strret
     def get_all_level_sensors(self):
-        strret  = "DAM1 LEVEL SENSOR: " + str(self.Dam1.get_water_level()) + "\n" + \
-                 "DAM2 LEVEL SENSOR: " + str(self.Dam2.get_water_level()) + "\n" + \
-                 "DAM3 LEVEL SENSOR: " + str(self.Dam3.get_water_level()) + "\n" +  \
-                 "DAM4 LEVEL SENSOR: " + str(self.Dam4.get_water_level()) + "\n"
+        strret  = "DAM1 LEVEL SENSOR: " + str(self.Dam1.get_water_level()) + " [10^2m]\n" + \
+                 "DAM2 LEVEL SENSOR: " + str(self.Dam2.get_water_level()) + " [10^2m]\n" + \
+                 "DAM3 LEVEL SENSOR: " + str(self.Dam3.get_water_level()) + " [10^2m]\n" +  \
+                 "DAM4 LEVEL SENSOR: " + str(self.Dam4.get_water_level()) + " [10^2m]\n"
         return strret
 
     def get_specific_level_sensor(self, id_dam):
@@ -213,17 +213,17 @@ class ScadaSimulator:
 
 
     def get_all_pressure_sensors(self):
-        strret = "DAM1 PRESSURE SENSOR: " + str(self.Dam1.get_water_pressure()) + "\n" + \
-                 "DAM2 PRESSURE SENSOR: " + str(self.Dam2.get_water_pressure()) + "\n" + \
-                 "DAM3 PRESSURE SENSOR: " + str(self.Dam3.get_water_pressure()) + "\n" +  \
-                 "DAM4 PRESSURE SENSOR: " + str(self.Dam4.get_water_pressure()) + "\n"
+        strret = "DAM1 PRESSURE SENSOR: " + str(self.Dam1.get_water_pressure()) + " [Pa] \n" + \
+                 "DAM2 PRESSURE SENSOR: " + str(self.Dam2.get_water_pressure()) + " [Pa] \n" + \
+                 "DAM3 PRESSURE SENSOR: " + str(self.Dam3.get_water_pressure()) + " [Pa] \n" +  \
+                 "DAM4 PRESSURE SENSOR: " + str(self.Dam4.get_water_pressure()) + " [Pa] \n"
         return strret
 
     def get_all_temperatures(self):
-        strret = "DAM1 WATER TEMPERATURE: " + str(self.Dam1.get_water_temperature()) + "\n" + \
-                 "DAM2 WATER TEMPERATURE: " + str(self.Dam2.get_water_temperature()) + "\n" + \
-                 "DAM3 WATER TEMPERATURE: " + str(self.Dam3.get_water_temperature()) + "\n" + \
-                 "DAM4 WATER TEMPERATURE: " + str(self.Dam4.get_water_temperature()) + "\n"
+        strret = "DAM1 WATER TEMPERATURE: " + str(self.Dam1.get_water_temperature()) + " [C] \n" + \
+                 "DAM2 WATER TEMPERATURE: " + str(self.Dam2.get_water_temperature()) + " [C] \n" + \
+                 "DAM3 WATER TEMPERATURE: " + str(self.Dam3.get_water_temperature()) + " [C] \n" + \
+                 "DAM4 WATER TEMPERATURE: " + str(self.Dam4.get_water_temperature()) + " [C] \n"
         return strret
 
     def get_all_stresses(self):

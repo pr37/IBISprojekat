@@ -17,11 +17,12 @@ class Dam:
         self.water_flow_sensor = WaterFlowSensor()
         self.water_level_sensor = WaterLevelSensor()
         self.water_pressure_sensor = WaterPressureSensor()
-        self.state = "inactive" #inactive, damaged, running
+        self.state = "running" #inactive, damaged, running
         self.valve_state = "closed" #opened, closed
         self.pump_state = "stop" #run, stop
         self.pump = WaterPump(id,random.randint(70, 100))
         self.water_temperature = WaterTemperatureSensor()
+        self.water_temperature.temp = 20
 
 
     def open_gate(self):
@@ -58,20 +59,24 @@ class Dam:
         self.pump.set_current_flow_rate(value)
 
     def get_water_flow(self):
-        return self.water_flow_sensor.get_flow_rate()
-        # if (self.state != "emergency shut down" or self.state != "damaged" or self.state != "inactive"):
-        #     # Define the range around the previous number
-        #     min_value = max(self.pum - 5, 0)
-        #     max_value = min(self.water_flow_sensor.flow_rate + 5, 50)
-        #
-        #     # Generate a random number within the defined range
-        #     new_number = random.randint(min_value, max_value)
-        #
-        #     # Update the previous number with the new number
-        #     self.self.water_flow_sensor.flow_rate = new_number
-        #     return self.self.water_flow_sensor.flow_rate
+        if (self.state == "emergency shut down" or self.valve_state == "closed" or self.valve_state == "close"):
+            return 0
+        #return self.water_flow_sensor.get_flow_rate()
+        if (self.state != "emergency shut down" or self.state != "damaged" or self.state != "inactive"):
+            # Define the range around the previous number
+            min_value = max(self.water_flow_sensor.flow_rate - 5, 0)
+            max_value = min(self.water_flow_sensor.flow_rate + 5, 50)
+
+            # Generate a random number within the defined range
+            new_number = random.randint(min_value, max_value)
+
+            # Update the previous number with the new number
+            self.water_flow_sensor.flow_rate = new_number
+            return self.water_flow_sensor.flow_rate
 
     def get_water_level(self):
+        if (self.state == "emergency shut down"):
+            return 0
         # return self.water_level_sensor.get_level()
         if (self.state != "emergency shut down" or self.state != "damaged" or self.state != "inactive"):
             # Define the range around the previous number
@@ -86,6 +91,8 @@ class Dam:
             return self.water_level_sensor.level
 
     def get_water_pressure(self):
+        if (self.state == "emergency shut down"):
+            return 0
         if (self.state != "emergency shut down" or self.state != "damaged" or self.state != "inactive"):
             # Define the range around the previous number
             min_value = max(self.water_pressure_sensor.pressure - 5, 0)
@@ -102,10 +109,12 @@ class Dam:
         self.water_flow_sensor.reset()
 
     def get_water_temperature(self):
+        if (self.state == "emergency shut down"):
+            return 0
         if (self.state != "emergency shut down" or self.state != "damaged" or self.state != "inactive"):
             # Define the range around the previous number
-            min_value = max(self.water_temperature.temp - 5, -20)
-            max_value = min(self.water_temperature.temp + 5, 40)
+            min_value = max(self.water_temperature.temp - 2, -20)
+            max_value = min(self.water_temperature.temp + 2, 40)
 
             # Generate a random number within the defined range
             new_number = random.randint(min_value, max_value)
@@ -121,13 +130,15 @@ class Dam:
         self.valve_state = new_valve_state
 
     def update_dam_state(self):
-        if (self.state == "damaged"):
+        if (self.state == "damaged" or self.state == "emergency shut down"):
             return
         if (self.valve_state == "closed" and self.pump.is_running == False):
             self.state = "inactive"
+        elif(self.valve_state == "open" and self.pump.is_running == True):
+            self.state = "running"
         if (self.water_level_sensor.level > 90 or self.water_level_sensor.level < 10):
             self.state = "inactive"
-        if (self.get_water_temperature() < 0):
+        if (self.get_water_temperature() < -10):
             self.state = "damaged"
 
     def massive_shut_down(self):
