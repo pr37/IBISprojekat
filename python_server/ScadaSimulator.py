@@ -213,10 +213,10 @@ class ScadaSimulator:
 
 
     def get_all_pressure_sensors(self):
-        strret = "DAM1 PRESSURE SENSOR: " + str(self.Dam1.get_water_pressure()) + " [Pa] \n" + \
-                 "DAM2 PRESSURE SENSOR: " + str(self.Dam2.get_water_pressure()) + " [Pa] \n" + \
-                 "DAM3 PRESSURE SENSOR: " + str(self.Dam3.get_water_pressure()) + " [Pa] \n" +  \
-                 "DAM4 PRESSURE SENSOR: " + str(self.Dam4.get_water_pressure()) + " [Pa] \n"
+        strret = "DAM1 PRESSURE SENSOR: " + str(self.Dam1.get_water_pressure()) + " [hPa] \n" + \
+                 "DAM2 PRESSURE SENSOR: " + str(self.Dam2.get_water_pressure()) + " [hPa] \n" + \
+                 "DAM3 PRESSURE SENSOR: " + str(self.Dam3.get_water_pressure()) + " [hPa] \n" +  \
+                 "DAM4 PRESSURE SENSOR: " + str(self.Dam4.get_water_pressure()) + " [hPa] \n"
         return strret
 
     def get_all_temperatures(self):

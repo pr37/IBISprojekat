@@ -104,8 +104,8 @@ class Dam:
             return 0
         if (self.state != "emergency shut down" or self.state != "damaged" or self.state != "inactive"):
             # Define the range around the previous number
-            min_value = max(self.water_pressure_sensor.pressure - 5, 0)
-            max_value = min(self.water_pressure_sensor.pressure + 5, 100)
+            min_value = max(self.water_level_sensor.level - 5, 0)
+            max_value = min(self.water_level_sensor.level + 5, 100)
 
             # Generate a random number within the defined range
             new_number = random.randint(min_value, max_value)
