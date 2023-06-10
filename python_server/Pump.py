@@ -6,7 +6,7 @@ class WaterPump:
     def __init__(self, pump_id, max_flow_rate):
         self.pump_id = pump_id
         self.max_flow_rate = max_flow_rate
-        self.current_flow_rate = 0
+        self.current_flow_rate = 5
         self.is_running = False
 
     def start(self):

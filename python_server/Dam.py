@@ -70,6 +70,9 @@ class Dam:
             # Generate a random number within the defined range
             new_number = random.randint(min_value, max_value)
 
+            if (self.pump.is_running):
+                new_number += self.pump.current_flow_rate
+
             # Update the previous number with the new number
             self.water_flow_sensor.flow_rate = new_number
             return self.water_flow_sensor.flow_rate
@@ -86,6 +89,12 @@ class Dam:
             # Generate a random number within the defined range
             new_number = random.randint(min_value, max_value)
 
+            if (self.pump.is_running):
+                new_number -= (self.pump.current_flow_rate - 2)
+
+            if (new_number < 0):
+                new_number = -new_number
+
             # Update the previous number with the new number
             self.water_level_sensor.level = new_number
             return self.water_level_sensor.level
@@ -100,6 +109,12 @@ class Dam:
 
             # Generate a random number within the defined range
             new_number = random.randint(min_value, max_value)
+
+            if (self.pump.is_running):
+                new_number -= (self.pump.current_flow_rate -2)
+
+            if (new_number < 0):
+                new_number = -new_number
 
             # Update the previous number with the new number
             self.water_pressure_sensor.pressure = new_number
@@ -136,8 +151,8 @@ class Dam:
             self.state = "inactive"
         elif(self.valve_state == "open" and self.pump.is_running == True):
             self.state = "running"
-        if (self.water_level_sensor.level > 90 or self.water_level_sensor.level < 10):
-            self.state = "inactive"
+        if (self.water_level_sensor.level > 90 or self.water_level_sensor.level < 2):
+            self.state = "dangerous_levels"
         if (self.get_water_temperature() < -10):
             self.state = "damaged"
 
